@@ -1,0 +1,1 @@
+module.exports= {dburl : 'mongodb+srv://lucidia:lucidpass@lucid.jleku.mongodb.net/<dbname>?retryWrites=true&w=majority'};

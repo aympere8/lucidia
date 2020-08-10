@@ -1,0 +1,19 @@
+<div>
+    <h1>register....</h1>
+    {{> regerrs}}
+    <div>
+        <form action="/ureg" method="post">
+        <label for="userfeild"> user</label>
+        <input type="text" name="user" id="userfeild"  value="{{#if user}}{{user}} {{else}}""{{/if}}">
+
+        <label for="mailfeild">E-mail</label>
+        <input type="email" name="mail" id="mailfeild" value="{{#if mail}}{{mail}} {{else}}""{{/if}}">
+
+
+        <label for="passfeild"> password</label>
+        <input type="password" name="password" id="passfeild" value="{{#if password}}{{password}} {{else}}""{{/if}}">
+
+        <input type="submit" value="register">
+        </form>
+    </div>
+</div>

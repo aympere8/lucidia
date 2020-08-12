@@ -38,49 +38,33 @@ router.post('/ureg', (rq,rs)=> {
    
    //user existence check
    else{
-        User.findOne({u_name : user})
-       .then( dat=> {
-           
-        if(dat){
-            errs.push("username taken");
-            rs.render('regstrat', {errs, user, mail,password})
-            }})
-       .catch(err=>{console.log(err)})
-       
-       User.findOne({u_mail : mail})
-       .then( datml=> {
-           if(datml){errs.push("user with this email already exists")
-           rs.render('regstrat', {errs, user, mail,password});
-        }})
-       .catch(err=>{console.log(err)})
+       User.findOne({u_mail: mail})
+       .then( (does_exist)=>{
+           if(does_exist)
+           {
+               errs.push("user mail already exists")
+               rs.render('regstrat', {errs,user,mail,password})
+           }
+           else
+           {
+            var hashp =bcrypt.hashSync(password, 10);
+            var sav_user = new User({
+                u_name: user,
+                u_mail: mail,
+                u_pass: hashp
+ 
+            });
+            
+            sav_user.save();  
+ 
+             rs.send('pass');
+            
+
+           }
+        }).catch(err=>console.log(err))
        
       
-// add new user
-        
-       {
-           /* var hashp =bcrypt.hashSync(password, 10);
-           var sav_user = new User({
-               u_name: user,
-               u_mail: mail,
-               u_pass: hashp
-
-           });
-           
-           sav_user.save();  */
-
-           rs.send('pass');
-           
-
-       }
-       
-   }
-
-
-    
-
-    
-    
-});
+}});
 
 
 module.exports= router;
